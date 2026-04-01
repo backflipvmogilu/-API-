@@ -1,0 +1,22 @@
+products:
+  - vendor_code: "A-50284-TX"
+    brand_name: "TechGear"
+    name: "Беспроводная мышь Ergonomic Pro"
+    price: 2500.00
+    stock_count: 45
+    parameters:
+      color: "Space Gray"
+      connection: "Bluetooth 5.0"
+      battery_life: "24 months"
+      dpi: 1600
+
+  - vendor_code: "B-99011-MZ"
+    brand_name: "Visionit"
+    name: "Монитор UltraSharp 27"
+    price: 32000.00
+    stock_count: 12
+    parameters:
+      resolution: "3840x2160"
+      panel_type: "IPS"
+      refresh_rate: "144Hz"
+
