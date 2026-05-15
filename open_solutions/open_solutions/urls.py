@@ -16,7 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from users.views import (RegisterView,LoginView)
+from shop.views import (ProductListView,ProductDetailView, BasketView, OrderConfirmView, OrdersView, OrderDetailView, HomeAPIView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/user/register/',
+    RegisterView.as_view()),
+    path('api/v1/user/login/',LoginView.as_view()),
+    path('api/v1/products/', ProductListView.as_view()),
+    path('api/v1/products/<int:pk>/', ProductDetailView.as_view()),
+    path('api/v1/basket/', BasketView.as_view()),
+    path('api/v1/order/confirm/', OrderConfirmView.as_view()),
+    path('api/v1/orders/', OrdersView.as_view()),
+    path('api/v1/orders/<int:pk>/', OrderDetailView.as_view()),
+    path('', HomeAPIView.as_view()),
 ]

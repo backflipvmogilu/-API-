@@ -44,7 +44,7 @@ class Product(models.Model):
 
 
 class ShopProduct(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='shop_product')
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)
     quantity = models.IntegerField('Количество', default=0)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2, default=0)
