@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Shop, Category, Product, ShopProduct, Parameter, ProductParameter, Order, OrderItem
+from .models import (
+    Shop,
+    Category,
+    Product,
+    ShopProduct,
+    Parameter,
+    ProductParameter,
+    Order,
+    OrderItem,
+)
 
 admin.site.register(Shop)
 admin.site.register(Category)

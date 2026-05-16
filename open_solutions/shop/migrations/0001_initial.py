@@ -15,109 +15,288 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Название категории')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=50, verbose_name="Название категории"),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
             },
         ),
         migrations.CreateModel(
-            name='Parameter',
+            name="Parameter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Наименование параметра')),
-                ('unit', models.CharField(blank=True, max_length=20, verbose_name='Единица измерения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=50, verbose_name="Наименование параметра"
+                    ),
+                ),
+                (
+                    "unit",
+                    models.CharField(
+                        blank=True, max_length=20, verbose_name="Единица измерения"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Параметр',
-                'verbose_name_plural': 'Параметры',
+                "verbose_name": "Параметр",
+                "verbose_name_plural": "Параметры",
             },
         ),
         migrations.CreateModel(
-            name='Shop',
+            name="Shop",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Название магазина')),
-                ('filename', models.FileField(blank=True, null=True, upload_to='', verbose_name='Прайс-лист')),
-                ('url', models.URLField(blank=True, verbose_name='Веб-сайт')),
-                ('phone', models.CharField(blank=True, max_length=11, verbose_name='Номер телефона')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=50, verbose_name="Название магазина"),
+                ),
+                (
+                    "filename",
+                    models.FileField(
+                        blank=True, null=True, upload_to="", verbose_name="Прайс-лист"
+                    ),
+                ),
+                ("url", models.URLField(blank=True, verbose_name="Веб-сайт")),
+                (
+                    "phone",
+                    models.CharField(
+                        blank=True, max_length=11, verbose_name="Номер телефона"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Магазин',
-                'verbose_name_plural': 'Магазины',
+                "verbose_name": "Магазин",
+                "verbose_name_plural": "Магазины",
             },
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('datatime', models.DateTimeField(auto_now_add=True, verbose_name='Дата и время оформления заказа')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "datatime",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата и время оформления заказа"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Заказ',
-                'verbose_name_plural': 'Заказы',
+                "verbose_name": "Заказ",
+                "verbose_name_plural": "Заказы",
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Наименование продукта')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.category', verbose_name='Категория')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=50, verbose_name="Наименование продукта"
+                    ),
+                ),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop.category",
+                        verbose_name="Категория",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Продукт',
-                'verbose_name_plural': 'Продукты',
+                "verbose_name": "Продукт",
+                "verbose_name_plural": "Продукты",
             },
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name="OrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('new', 'Заказ оформлен'), ('shipped', 'Заказ в пути'), ('ready', 'Можете забрать заказ'), ('canceled', 'Заказ отменён')], default='new', max_length=20, verbose_name='Статус заказа')),
-                ('quantity', models.IntegerField(default=0, verbose_name='Количество')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.order')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
-                ('shop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.shop')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("new", "Заказ оформлен"),
+                            ("shipped", "Заказ в пути"),
+                            ("ready", "Можете забрать заказ"),
+                            ("canceled", "Заказ отменён"),
+                        ],
+                        default="new",
+                        max_length=20,
+                        verbose_name="Статус заказа",
+                    ),
+                ),
+                ("quantity", models.IntegerField(default=0, verbose_name="Количество")),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.order"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.product"
+                    ),
+                ),
+                (
+                    "shop",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.shop"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Позиция заказа',
-                'verbose_name_plural': 'Позиции заказа',
+                "verbose_name": "Позиция заказа",
+                "verbose_name_plural": "Позиции заказа",
             },
         ),
         migrations.CreateModel(
-            name='ShopProduct',
+            name="ShopProduct",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField(default=0, verbose_name='Количество')),
-                ('price', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Цена')),
-                ('price_rrc', models.DecimalField(decimal_places=2, default=0, max_digits=10, verbose_name='Рекомендованная розничная цена')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
-                ('shop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.shop')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField(default=0, verbose_name="Количество")),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2, default=0, max_digits=10, verbose_name="Цена"
+                    ),
+                ),
+                (
+                    "price_rrc",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0,
+                        max_digits=10,
+                        verbose_name="Рекомендованная розничная цена",
+                    ),
+                ),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.product"
+                    ),
+                ),
+                (
+                    "shop",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="shop.shop"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Информация о продукте',
-                'verbose_name_plural': 'Информация о продуктах',
+                "verbose_name": "Информация о продукте",
+                "verbose_name_plural": "Информация о продуктах",
             },
         ),
         migrations.CreateModel(
-            name='ProductParameter',
+            name="ProductParameter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.CharField(max_length=100, verbose_name='Значение')),
-                ('parameter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.parameter', verbose_name='Параметр')),
-                ('shop_product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.shopproduct', verbose_name='Информация о продукте')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.CharField(max_length=100, verbose_name="Значение")),
+                (
+                    "parameter",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop.parameter",
+                        verbose_name="Параметр",
+                    ),
+                ),
+                (
+                    "shop_product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop.shopproduct",
+                        verbose_name="Информация о продукте",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Параметр продукта',
-                'verbose_name_plural': 'Параметры продуктов',
+                "verbose_name": "Параметр продукта",
+                "verbose_name_plural": "Параметры продуктов",
             },
         ),
     ]
