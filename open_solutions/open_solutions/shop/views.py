@@ -1,8 +1,14 @@
-from rest_framework.generics import ListAPIView
-from .models import Product
-from .serializers import ProductSerializer
-from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView,
+    ListCreateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from drf_spectacular.utils import extend_schema
+
 from .models import Product, Order, OrderItem
 from .serializers import (
     ProductSerializer,
@@ -12,8 +18,6 @@ from .serializers import (
     OrderConfirmSerializer,
     OrderSerializer,
 )
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 
 class ProductListView(ListAPIView):
@@ -31,42 +35,87 @@ class BasketView(ListCreateAPIView):
     serializer_class = BasketSerializer
 
     def get_queryset(self):
-        return OrderItem.objects.filter(order__user=self.request.user)
+        return OrderItem.objects.filter(
+            order__user=self.request.user
+        )
 
+    @extend_schema(
+        request=BasketAddSerializer
+    )
     def post(self, request):
-        serializer = BasketAddSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        serializer = BasketAddSerializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
         data = serializer.validated_data
-        order, _ = Order.objects.get_or_create(user=request.user)
+
+        order, _ = Order.objects.get_or_create(
+            user=request.user
+        )
+
         OrderItem.objects.create(
             order=order,
             shop_id=data["shop_id"],
             product_id=data["product_id"],
             quantity=data["quantity"],
         )
-        return Response({"status": "Товар добавлен в корзину"})
 
+        return Response(
+            {
+                "status": "Товар добавлен в корзину"
+            }
+        )
+
+    @extend_schema(
+        request=BasketDeleteSerializer
+    )
     def delete(self, request):
-        serializer = BasketDeleteSerializer(data=request.data)
+        serializer = BasketDeleteSerializer(
+            data=request.data
+        )
 
-        serializer.is_valid(raise_exception=True)
+        serializer.is_valid(
+            raise_exception=True
+        )
 
         data = serializer.validated_data
 
-        item = OrderItem.objects.get(id=data["item_id"], order__user=request.user)
+        item = OrderItem.objects.get(
+            id=data["item_id"],
+            order__user=request.user,
+        )
 
         item.delete()
 
-        return Response({"status": "Товар удалён"})
+        return Response(
+            {
+                "status": "Товар удалён"
+            }
+        )
 
 
 class OrderConfirmView(APIView):
+
+    serializer_class = OrderConfirmSerializer
+
     def post(self, request):
-        items = OrderItem.objects.filter(order__user=request.user)
+        items = OrderItem.objects.filter(
+            order__user=request.user
+        )
+
         for item in items:
             item.status = OrderItem.Status.SHIPPED
             item.save()
-        return Response({"status": "Заказ подтверждён"})
+
+        return Response(
+            {
+                "status": "Заказ подтверждён"
+            }
+        )
 
 
 class OrdersView(ListAPIView):
@@ -74,7 +123,9 @@ class OrdersView(ListAPIView):
     serializer_class = OrderSerializer
 
     def get_queryset(self):
-        return OrderItem.objects.filter(order__user=self.request.user).exclude(
+        return OrderItem.objects.filter(
+            order__user=self.request.user
+        ).exclude(
             status=OrderItem.Status.NEW
         )
 
@@ -84,7 +135,6 @@ class OrderDetailView(RetrieveAPIView):
     queryset = OrderItem.objects.all()
     permission_classes = [IsAuthenticated]
 
-from drf_spectacular.utils import extend_schema
 
 @extend_schema(exclude=True)
 class HomeAPIView(APIView):

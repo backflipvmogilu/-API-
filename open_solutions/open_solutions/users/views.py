@@ -6,6 +6,8 @@ from .serializers import RegisterSerializer, LoginSerializer
 
 class RegisterView(APIView):
 
+    serializer_class = RegisterSerializer
+
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -15,6 +17,8 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
+
+    serializer_class = LoginSerializer
 
     def post(self, request):
 
